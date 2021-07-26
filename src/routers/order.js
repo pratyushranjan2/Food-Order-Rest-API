@@ -19,7 +19,7 @@ router.post('/orders/:foodID', auth, async (req,res) => {
         await order.save();
         res.status(201).send({message: 'Order created'});
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
@@ -39,7 +39,7 @@ router.get('/orders', auth, async (req,res) => {
         }).execPopulate();
         res.send(req.user.orders);
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
@@ -51,7 +51,7 @@ router.get('/orders/:id', adminAuth, async (req,res) => {
         }
         res.send(order);
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
@@ -63,7 +63,7 @@ router.delete('/orders/:id', adminAuth, async (req,res) => {
         }
         await order.delete();
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 

@@ -14,7 +14,7 @@ router.post('/admin', async (req,res) => {
         const token = await admin.createAuthToken();
         res.status(201).send({admin, token});
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
@@ -24,7 +24,7 @@ router.post('/admin/login', async (req,res) => {
         const token = await admin.createAuthToken();
         res.send({admin, token});
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
@@ -34,7 +34,7 @@ router.post('/admin/logout', adminAuth, async (req,res) => {
         await req.admin.save();
         res.send({message: 'Logged out'});
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
@@ -44,7 +44,7 @@ router.post('/admin/logoutAll', adminAuth, async (req,res) => {
         await req.admin.save();
         res.send({message: 'Logged out from all devices'});
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
@@ -60,7 +60,7 @@ router.patch('/admin/current', adminAuth, async (req,res) => {
         await req.admin.save();
         res.send({message: 'Details updated successfully'});
     } catch (error) {
-        res.status(400).send()
+        res.status(400).send({error})
     }
 });
 

@@ -25,7 +25,7 @@ router.get('/food/:id', async (req,res) => {
         }
         res.send(food);
     } catch (error) {
-        res.status(404).send();
+        res.status(404).send({error});
     }
 });
 
@@ -40,7 +40,7 @@ router.get('/food', async (req,res) => {
         const foods = await Food.find(req.body).limit(parseInt(req.query.limit)).skip(parseInt(req.query.skip));
         res.send(foods);
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
@@ -60,7 +60,7 @@ router.patch('/food/:id', adminAuth, async (req,res) => {
         await food.save();
         res.send(food);
     } catch (error) {
-        res.status(400).send();
+        res.status(400).send({error});
     }
 });
 
@@ -101,7 +101,7 @@ router.post('/food/:id/image', adminAuth, upload.single('image'), async (req,res
         await food.save();
         res.send({message: 'Image uploaded'})
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
@@ -114,7 +114,7 @@ router.get('/food/:id/image', async (req,res) => {
         res.set('Content-Type', 'image/png');
         res.send(food.image);
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
@@ -127,7 +127,7 @@ router.delete('/food/:id/image', adminAuth, async (req,res) => {
         food.image = undefined;
         await food.save();
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 

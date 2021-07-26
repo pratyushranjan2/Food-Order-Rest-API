@@ -5,8 +5,6 @@ const auth = require('../middleware/auth');
 const multer = require('multer');
 const sharp = require('sharp');
 
-const serverError = {error: 'Server error'};
-
 router.post('/users', async (req,res) => {
     const user = new User(req.body);
     try {
@@ -25,7 +23,7 @@ router.post('/users/login', async(req,res) => {
         res.send({user, token});
     } catch (error) {
         res.status(400).send({error});
-        console.log(error);
+        console.log({error});
     }
 });
 
@@ -36,7 +34,7 @@ router.post('/users/logout', auth, async (req,res) => {
         res.send({message: 'Logged out'});
     } catch (error) {
         console.log('Logout error trace:\n'+error);
-        res.status(500).send(serverError);
+        res.status(500).send({error});
     }
 });
 
@@ -47,7 +45,7 @@ router.post('/users/logoutAll', auth, async (req,res) => {
         res.send();
     } catch (error) {
         console.log('Logout all error trace:\n'+error);
-        res.status(500).send(serverError);
+        res.status(500).send({error});
     }
 });
 
@@ -55,7 +53,7 @@ router.get('/users/me', auth, (req,res) => {
     try {
         res.send(req.user);
     } catch (error) {
-        res.status(500).send(serverError);
+        res.status(500).send({error});
     }
 });
 
@@ -71,7 +69,7 @@ router.patch('/users/me', auth, async (req,res) => {
         await req.user.save();
         res.send({message: 'Updated successfully'});
     } catch (error) {
-        res.status(500).send(serverError);
+        res.status(500).send({error});
     }
 });
 
@@ -80,7 +78,7 @@ router.delete('/users/me', auth, async (req,res) => {
         await req.user.remove();
         res.send(req.user);
     } catch (error) {
-        res.status(500).send(serverError);
+        res.status(500).send({error});
     }
 });
 
@@ -116,7 +114,7 @@ router.get('/users/:id/avatar', async (req,res) => {
         res.set('Content-Type','image/png');
         res.send(user.avatar);
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send({error});
     }
 });
 
