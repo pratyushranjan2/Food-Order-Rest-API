@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true,
         lowercase: true,
-        validator(value) {
+        validate(value) {
             if (!validator.isEmail(value)) throw new Error('email is invalid');
         }
     },
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         required: true,
         minlength: 6,
-        validator(value) {
+        validate(value) {
             if (value.toLowerCase().includes('password')) throw new Error('Password cannot contain "password"');
         }
     },
