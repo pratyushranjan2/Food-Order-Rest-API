@@ -124,4 +124,4 @@ router.delete('/users/me/avatar', auth, async (req,res) => {
     res.send();
 });
 
-module.exports = router;
+module.exports = router; 
