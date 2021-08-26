@@ -45,7 +45,7 @@ router.get('/food', async (req,res) => {
 });
 
 router.patch('/food/:id', adminAuth, async (req,res) => {
-    const allowed = ['name','price','availability','description','discount'];
+    const allowed = ['name','price','availability','description','discount','stock'];
     const updates = Object.keys(req.body);
     try {
         const food = await Food.findById(req.params.id);

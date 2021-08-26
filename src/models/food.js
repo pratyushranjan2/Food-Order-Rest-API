@@ -43,5 +43,13 @@ foodSchema.virtual('orders', {
     foreignField: 'food'
 });
 
+foodSchema.methods.toJSON = function() {
+    const food = this;
+    const foodObject = food.toObject();
+    delete foodObject.image;
+
+    return foodObject;
+}
+
 const Food = mongoose.model('food', foodSchema);
 module.exports = Food;

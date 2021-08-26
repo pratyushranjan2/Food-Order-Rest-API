@@ -69,7 +69,7 @@ router.patch('/users/me', auth, async (req,res) => {
         await req.user.save();
         res.send({message: 'Updated successfully'});
     } catch (error) {
-        res.status(500).send({error});
+        res.status(400).send({error});
     }
 });
 
@@ -119,9 +119,14 @@ router.get('/users/:id/avatar', async (req,res) => {
 });
 
 router.delete('/users/me/avatar', auth, async (req,res) => {
-    req.user.avatar = undefined;
-    await req.user.save();
-    res.send();
+    try {
+        req.user.avatar = undefined;
+        await req.user.save();
+        res.send();
+    }
+    catch (error) {
+        res.status(500).send({error});
+    }
 });
 
 module.exports = router; 
