@@ -1,6 +1,6 @@
 # PRODUCTION SERVER BASE URL
 `https://ranjan-food-order.herokuapp.com` <br/>
-Note that this URL is only for making API requests, so visiting the URL in the browser is not going to render any HTML. <br/> 
+The URL is only for making API requests. <br/> 
 
 # REQUESTS
 
